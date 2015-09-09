@@ -1,4 +1,4 @@
-name := """Mopper_Web"""
+name := """Mopper"""
 
 version := "1.0-SNAPSHOT"
 
