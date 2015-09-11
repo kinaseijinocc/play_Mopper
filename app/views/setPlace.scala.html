@@ -1,0 +1,37 @@
+@(placeList: List[Place],placeForm: Form[Place], map: HashMap[String, String])
+@import helper._
+
+<html>
+    <head>
+		<title>掃除場所設定画面</title>
+    </head>
+    <body>
+
+
+        <h1>登録</h1>
+        @form(routes.Application.insert_place()){
+        	@inputText(placeForm("name"))
+        	<input type="submit" value="insert">
+        }
+        <h1>更新</h1>
+
+        @form(routes.Application.update_place()){
+            @select(placeForm("name"), options = options(map))
+			@inputText(placeForm("name"))
+        	<input type="submit" value="update">
+        }
+
+        <h1>削除</h1>
+        @form(routes.Application.insert_place()){
+        	@inputText(placeForm("name"))
+        	<input type="submit" value="insert">
+        }
+
+
+        <!-- name に関するエラーがあったら表示する -->
+    @for(error <- placeForm("name").errors) {
+        <p>@Messages(error.message)</p>
+    }
+
+    </body>
+</html>

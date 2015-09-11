@@ -1,27 +1,25 @@
-@(placeList: List[Place], placeForm: Form[Place])
-
-@import helper._
+@(placeList: List[Place])
 
 <html>
     <head>
 		<title>掃除場所設定画面</title>
     </head>
     <body>
+     <a href="@routes.Application.index()">トップページ</a>         <a href="@routes.Application.insert_place()">掃除場所設定ページ</a>
         <h1>タスク一覧</h1>
-        @form(routes.Application.insert_place()){
-        	@inputText(placeForm("name"))
-        	<input type="submit" value="insert">
-        }
-
-    @if(placeList.isEmpty()) {
-        Task は一件もありません
-    } else {
+		<table>
+			 @if(placeList.isEmpty()) {
+      				  掃除場所は一件もありません
+   				 } else {
        <ul>
-       @for(place <- placeList) {
-           <li>@place.name</li>
-       }
+       			@for(place <- placeList) {
+           		<li>@place.name</li>
+      			 }
        </ul>
-    }
+   			}
+
+		</table>
+
 
     </body>
 </html>

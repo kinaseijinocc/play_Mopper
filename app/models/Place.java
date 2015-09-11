@@ -12,7 +12,7 @@ public class Place extends Model {
 	@Id
 	public Integer id;
 
-	@Required
+
 	public String name;
 
 	public static Finder<Integer, Place> find = new Finder<Integer, Place>(

@@ -10,8 +10,12 @@ import models.Syain;
 
 import java.util.Arrays;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import com.avaje.ebean.Ebean;
+import com.avaje.ebean.SqlRow;
 
 import play.*;
 import play.data.Form;
@@ -36,26 +40,43 @@ public class Application extends Controller {
     	return ok(syain.render("Aさん"));
     }
 
-    public static Result place(){
+    public static Result place() {
     	List<Place> placeList = Place.find.all();
-    	return ok(place.render(placeList,placeForm));
+    	return ok(place.render(placeList));
     }
+
+
 
     public static Result insert_place() {
     	Form<Place> form = placeForm.bindFromRequest();
+    	 Place newTask = form.get();
+         newTask.save();
 
-
-    	if (form.hasErrors()) {
-    		List<Place> placeList = Place.find.all();
-
-            // 制約エラーが発生したら、その情報を持つ form を渡してあげる
-            return badRequest(place.render(placeList, form));
-
-        } else {
-            Place newPlace = form.get();
-            newPlace.save();
             return redirect(routes.Application.place());
-        }
+
+
+    }
+    public static Result select(){
+    	HashMap<String,String> map = new HashMap<String,String>();
+    	Place task = new Place();
+
+    	task.name = "fsf";
+    	task.save();
+
+    	List<Place> placeList = Place.find.all();
+
+    	for(Place place :Place.find.all()){
+    		map.put(place.id.toString(),place.name);
+    	}
+
+    	return ok(setPlace.render(placeList,placeForm,map));
+
+    }
+    public static Result update_place(){
+    	Form<Place> form = placeForm.bindFromRequest();
+
+
+            return redirect(routes.Application.place());
 
     }
 }
